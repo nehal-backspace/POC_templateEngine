@@ -1,0 +1,231 @@
+{
+	"bg_img_pos": "end",
+	"subtitle": "",
+	"title": "{{adCollection.tiles[0].campaignDetails.label}}",
+	"isMultipleSelectionInput": false,
+	"footer_title": "",
+		{% if bg_color is null %}
+	"bg_color": "#FFFFFF",
+		{% else %}
+	"bg_color":"{{bg_color}}",
+		{% endif %}
+	"tuple_bg_color": "#FFFFFF",
+	"widget_logo": "",
+	"close_icon_avail": false,
+	"desc_type": "brandingCollectionWidget",
+	"bg_img": "",
+	"maxOptionVisible": 5,
+	"minOptionVisible":3,
+	"options": [
+		{% set ctr=0 %}
+		{% for ad in adCollection.tiles %}                    
+		{% set ctr=ctr+1 %}
+		{% if (loop.first==false) and (ctr>1) %},{% endif %}{
+			"ubaEvent":{
+				"name":"brandingView",
+				"data":{
+					"campaignId": {{ad.campaignDetails.campaignId}},
+					"companyId": {{ad.campaignDetails.companyId}},
+					"groupId": {{ad.campaignDetails.groupId}},
+					"adId": {{ad.campaignDetails.adId}},
+					"subscriptionId": {{ad.campaignDetails.subscriptionId}},
+					"type": "{{ adType }}",
+					"filters": {
+						{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
+							"fareaIds": [],
+						{% else %}
+							"fareaIds": {{ad.campaignDetails.filters.fareaIds}},
+						{% endif %}
+						{% if ad.campaignDetails.filters.locationIds|length ==0 %}
+							"locationIds": [],
+						{% else %}
+							"locationIds": {{ad.campaignDetails.filters.locationIds}},
+						{% endif %}
+						{% if ad.campaignDetails.filters.entityDeptIds|length ==0 %}
+							"domainIds": []
+						{% else %}
+							"domainIds": {{ad.campaignDetails.filters.entityDeptIds}}
+						{% endif %}
+					},
+					"label": "{{ad.campaignDetails.label}}"
+				}
+			},
+			"type": "brandingCollectionCard",
+			"properties": {
+				{% set groupId=ad.campaignDetails.groupId   %}  
+				{% set label=ad.data.label %}   
+				"title": "{{  recruiter_company_service_branding[groupId].groupName }}",
+				{% if (recruiter_company_service_group[groupId] is empty) or (recruiter_company_service_branding[groupId].customizedTags is empty) %}   
+					"tags": [],
+				{% else %}
+				"tags":[
+					{% for companyTag in recruiter_company_service_branding[groupId].customizedTags %}
+				"{{companyTag}}"{% if loop.last==false %},{% endif %}
+				{% endfor %}
+				],
+				{% endif %}
+				"label": "{{ad.data.label}}",
+				"description": "TBD",
+				"isFollowing": false,
+				"jobOpening": 800,
+				"logo": "recruiter_company_service_branding[groupId].groupLogoNew.mobile.v1",
+				"id": "{{ad.campaignDetails.companyId}}",
+				"groupId": "{{ad.campaignDetails.groupId}}"
+			},
+			"leftCTA": {
+				"title": "Follow",
+				"id": "{{ad.campaignDetails.groupId}}",
+				"code": "Follow",
+				"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
+				"ubaEvent": {
+					"name":"brandingClick",
+					"data":{
+						"campaignId": {{ad.campaignDetails.campaignId}},
+						"companyId": {{ad.campaignDetails.companyId}},
+						"groupId": {{ad.campaignDetails.groupId}},
+						"adId": {{ad.campaignDetails.adId}},
+						"subscriptionId": {{ad.campaignDetails.subscriptionId}},
+						"type": "{{ adType }}",
+						"filters": {
+							{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
+							"fareaIds": [],
+							{% else %}
+							"fareaIds": {{ad.campaignDetails.filters.fareaIds}},
+							{% endif %}
+							{% if ad.campaignDetails.filters.locationIds|length ==0 %}
+							"locationIds": [],
+							{% else %}
+							"locationIds": {{ad.campaignDetails.filters.locationIds}},
+							{% endif %}
+							{% if ad.campaignDetails.filters.entityDeptIds|length ==0 %}
+							"domainIds": []
+							{% else %}
+								"domainIds": {{ad.campaignDetails.filters.entityDeptIds}}
+							{% endif %}
+						},
+						"label": "{{ad.campaignDetails.label}}",
+						"CTA" : "Follow"
+					}
+				}
+			},
+		   
+			"rightCTA": {
+				"title": "View jobs",
+				"hitType": "inApp",
+				"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
+				"shouldRefreshImsOnCtaAction": false,"status":true,
+				"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte/jobs",
+				"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}?tab=jobs",
+				"ubaEvent": {
+					"name":"brandingClick",
+					"data":{
+						"campaignId": {{ad.campaignDetails.campaignId}},
+						"companyId": {{ad.campaignDetails.companyId}},
+						"groupId": {{ad.campaignDetails.groupId}},
+						"adId": {{ad.campaignDetails.adId}},
+						"subscriptionId": {{ad.campaignDetails.subscriptionId}},
+						"type": "{{ adType }}",
+						"filters": {
+									{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
+									"fareaIds": [],
+									{% else %}
+									"fareaIds": {{ad.campaignDetails.filters.fareaIds}},
+									{% endif %}
+									{% if ad.campaignDetails.filters.locationIds|length ==0 %}
+									"locationIds": [],
+									{% else %}
+									"locationIds": {{ad.campaignDetails.filters.locationIds}},
+									{% endif %}
+									{% if ad.campaignDetails.filters.entityDeptIds|length ==0 %}
+									"domainIds": []
+									{% else %}
+										"domainIds": {{ad.campaignDetails.filters.entityDeptIds}}
+									{% endif %}
+						},
+						"label": "{{ad.campaignDetails.label}}",
+						"CTA" : "View jobs"
+					}
+				}
+			},
+			
+			"click": {
+				"shouldRefreshImsOnCtaAction": false,
+				"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
+				"hitType": "inApp",
+				"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte",
+				"viewImagePath": "chevron",
+				"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}",
+					"treatWholeWidget" : true,
+				"ubaEvent": {
+					"name":"brandingClick",
+					"data":{
+						"campaignId": {{ad.campaignDetails.campaignId}},
+						"companyId": {{ad.campaignDetails.companyId}},
+						"groupId": {{ad.campaignDetails.groupId}},
+						"adId": {{ad.campaignDetails.adId}},
+						"subscriptionId": {{ad.campaignDetails.subscriptionId}},
+						"type": "{{ adType }}",
+						"filters": {
+							{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
+							"fareaIds": [],
+							{% else %}
+							"fareaIds": {{ad.campaignDetails.filters.fareaIds}},
+							{% endif %}
+							{% if ad.campaignDetails.filters.locationIds|length ==0 %}
+							"locationIds": [],
+							{% else %}
+							"locationIds": {{ad.campaignDetails.filters.locationIds}},
+							{% endif %}
+							{% if ad.campaignDetails.filters.entityDeptIds|length ==0 %}
+							"domainIds": []
+							{% else %}
+							"domainIds": {{ad.campaignDetails.filters.entityDeptIds}}
+							{% endif %}
+						},
+						"label": "{{ad.campaignDetails.label}}",
+						"CTA" : "Tuple"
+					}
+				}
+			}
+		}
+		{% endfor %}
+	],
+	"totalItemsCount":{{ctr}},
+	"positiveCTA": {
+		"title": "View all",
+		"type": "1",
+		"isBtn": false,
+		"loginUrl": "",
+		"treatWholeWidget": false,
+		"inAppTitle": "",
+		"shouldRefreshImsOnCtaAction": true,
+		"url": "https://www.naukri.com/brandingWidgets?label={{ adCollection.tiles[0].campaignDetails.label }}",
+		"hitType": "inApp",
+		"fallbackUrl": "https://www.naukri.com/brandingWidgets?title={{adCollection.tiles[0].campaignDetails.label}}",
+		"ubaEvent": {
+			"name":"brandingClick",
+			"data":{
+				"CTA" : "View all",
+				"type": "{{ adType }}",
+				"label": "{{ad.campaignDetails.label}}",
+				"filters": {
+					{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
+						"fareaIds": [],
+					{% else %}
+						"fareaIds": {{ad.campaignDetails.filters.fareaIds}},
+					{% endif %}
+					{% if ad.campaignDetails.filters.locationIds|length ==0 %}
+						"locationIds": [],
+					{% else %}
+						"locationIds": {{ad.campaignDetails.filters.locationIds}},
+					{% endif %}
+					{% if ad.campaignDetails.filters.entityDeptIds|length ==0 %}
+					"domainIds": []
+					{% else %}
+						"domainIds": {{ad.campaignDetails.filters.entityDeptIds}}
+					{% endif %}
+				}
+			}
+		}
+	}
+}

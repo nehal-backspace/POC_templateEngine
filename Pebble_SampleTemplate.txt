@@ -1,0 +1,228 @@
+{
+	"bg_img_pos": "end",
+	"subtitle": "",
+	"title": "",
+	"isMultipleSelectionInput": false,
+	"footer_title": "",
+		{% if bg_color is null %}
+	"bg_color": "#FFFFFF",
+		{% else %}
+	"bg_color":"{{bg_color}}",
+		{% endif %}
+	"tuple_bg_color": "#FFFFFF",
+	"widget_logo": "",
+	"close_icon_avail": false,
+	"desc_type": "brandingCollectionWidget",
+	"bg_img": "",
+	"maxOptionVisible": 5,
+	"minOptionVisible":3,
+	"options": [
+		{% set ctr=0 %}
+		{% for ad in adCollection.get('tiles') %}                    
+		{% set ctr=ctr+1 %}
+		{% if (loop.first==false) and (ctr>1) %},{% endif %}{
+		"ubaEvent":{
+			"name":"brandingView",
+			"data":{
+				"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
+				"companyId": {{ad.get('campaignDetails').get('companyId')}},
+				"groupId": {{ad.get('campaignDetails').get('groupId')}},
+				"adId": {{ad.get('campaignDetails').get('adId')}},
+				"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
+				"type": "{{ adType }}",
+				"filters": {
+					{% if ad.get('campaignDetails').get('filters').get('fareaIds')|length ==0 %}
+						"fareaIds": [],
+					{% else %}
+						"fareaIds": {{ad.get('campaignDetails').get('filters').get('fareaIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('locationIds')|length ==0 %}
+						"locationIds": [],
+					{% else %}
+						"locationIds": {{ad.get('campaignDetails').get('filters').get('locationIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('entityDeptIds')|length ==0 %}
+						"domainIds": []
+					{% else %}
+						"domainIds": {{ad.get('campaignDetails').get('filters').get('entityDeptIds')}}
+					{% endif %}
+				},
+				"label": "{{ad.get('campaignDetails').get('label')}}"
+			}
+		},
+		"type": "brandingCollectionCard",
+		"properties": {
+			{% set groupId=ad.get('campaignDetails').get('groupId')  %}  
+			{% set label=ad.get('campaignDetails').get('label') %}   
+			"title": "{{  recruiter_company_service_branding[groupId].groupName }}",
+			{% if (recruiter_company_service_group[groupId] is empty) or (recruiter_company_service_branding[groupId].customizedTags is empty) %}   
+				"tags": [],
+			{% else %}
+			"tags":[
+				{% for companyTag in recruiter_company_service_branding[groupId].customizedTags %}
+			"{{companyTag}}"{% if loop.last==false %},{% endif %}
+			{% endfor %}
+			],
+			{% endif %}
+			"label": "{{ad.get('campaignDetails').get('label')}}",
+			"description": "TBD",
+			"isFollowing": false,
+			"jobOpening": 800,
+			"logo": "recruiter_company_service_branding[groupId].groupLogoNew.mobile.v1",
+			"id": {{ad.get('campaignDetails').get('companyId')}},
+			"groupId":{{ad.get('campaignDetails').get('groupId')}}
+		},
+		"leftCTA": {
+			"title": "Follow",
+			"id": "{{ad.get('campaignDetails').get('groupId')}}",
+			"code": "Follow",
+			"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
+			"ubaEvent": {
+				"name":"brandingClick",
+				"data":{
+					"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
+					"companyId": {{ad.get('campaignDetails').get('companyId')}},
+					"groupId": {{ad.get('campaignDetails').get('groupId')}},
+					"adId": {{ad.get('campaignDetails').get('adId')}},
+					"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
+					"type": "{{ adType }}",
+					"filters": {
+						{% if ad.get('campaignDetails').get('filters').get('fareaIds')|length ==0 %}
+							"fareaIds": [],
+						{% else %}
+							"fareaIds": {{ad.get('campaignDetails').get('filters').get('fareaIds')}},
+						{% endif %}
+						{% if ad.get('campaignDetails').get('filters').get('locationIds')|length ==0 %}
+							"locationIds": [],
+						{% else %}
+							"locationIds": {{ad.get('campaignDetails').get('filters').get('locationIds')}},
+						{% endif %}
+						{% if ad.get('campaignDetails').get('filters').get('entityDeptIds')|length ==0 %}
+							"domainIds": []
+						{% else %}
+							"domainIds": {{ad.get('campaignDetails').get('filters').get('entityDeptIds')}}
+						{% endif %}
+					},
+					"label": "{{ad.get('campaignDetails').get('label')}}"
+					"CTA" : "Follow"
+				}
+			}
+		},	
+		"rightCTA": {
+			"title": "View jobs",
+			"hitType": "inApp",
+			"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
+			"shouldRefreshImsOnCtaAction": false,"status":true,
+			"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte/jobs",
+			"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}?tab=jobs",
+			"ubaEvent": {
+				"name":"brandingClick",
+				"data":{
+					"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
+					"companyId": {{ad.get('campaignDetails').get('companyId')}},
+					"groupId": {{ad.get('campaignDetails').get('groupId')}},
+					"adId": {{ad.get('campaignDetails').get('adId')}},
+					"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
+					"type": "{{ adType }}",
+					"filters": {
+					{% if ad.get('campaignDetails').get('filters').get('fareaIds')|length ==0 %}
+						"fareaIds": [],
+					{% else %}
+						"fareaIds": {{ad.get('campaignDetails').get('filters').get('fareaIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('locationIds')|length ==0 %}
+						"locationIds": [],
+					{% else %}
+						"locationIds": {{ad.get('campaignDetails').get('filters').get('locationIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('entityDeptIds')|length ==0 %}
+						"domainIds": []
+					{% else %}
+						"domainIds": {{ad.get('campaignDetails').get('filters').get('entityDeptIds')}}
+					{% endif %}
+				},
+				"label": "{{ad.get('campaignDetails').get('label')}}"
+				"CTA" : "View jobs"
+				}
+			}
+		},
+			
+		"click": {
+			"shouldRefreshImsOnCtaAction": false,
+			"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
+			"hitType": "inApp",
+			"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte",
+			"viewImagePath": "chevron",
+			"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}",
+				"treatWholeWidget" : true,
+			"ubaEvent": {
+				"name":"brandingClick",
+				"data":{
+					"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
+					"companyId": {{ad.get('campaignDetails').get('companyId')}},
+					"groupId": {{ad.get('campaignDetails').get('groupId')}},
+					"adId": {{ad.get('campaignDetails').get('adId')}},
+					"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
+					"type": "{{ adType }}",
+					"filters": {
+					{% if ad.get('campaignDetails').get('filters').get('fareaIds')|length ==0 %}
+						"fareaIds": [],
+					{% else %}
+						"fareaIds": {{ad.get('campaignDetails').get('filters').get('fareaIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('locationIds')|length ==0 %}
+						"locationIds": [],
+					{% else %}
+						"locationIds": {{ad.get('campaignDetails').get('filters').get('locationIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('entityDeptIds')|length ==0 %}
+						"domainIds": []
+					{% else %}
+						"domainIds": {{ad.get('campaignDetails').get('filters').get('entityDeptIds')}}
+					{% endif %}
+					},
+				"label": "{{ad.get('campaignDetails').get('label')}}"
+				"CTA" : "Tuple"
+				}
+			}
+		}
+	}{% endfor %}],
+	"totalItemsCount":{{ctr}},
+	"positiveCTA": {
+		"title": "View all",
+		"type": "1",
+		"isBtn": false,
+		"loginUrl": "",
+		"treatWholeWidget": false,
+		"inAppTitle": "",
+		"shouldRefreshImsOnCtaAction": true,
+		"url": "https://www.naukri.com/brandingWidgets?label={{ adCollection.tiles[0].get('campaignDetails').get('label') }}",
+		"hitType": "inApp",
+		"fallbackUrl": "https://www.naukri.com/brandingWidgets?title={{adCollection.tiles[0].campaignDetails.label}}",
+		"ubaEvent": {
+			"name":"brandingClick",
+			"data":{
+				"CTA" : "View all",
+				"type": {{ adType }},
+				"label": {{ad.get('campaignDetails').get('label')}},
+				"filters": {
+					{% if ad.get('campaignDetails').get('filters').get('fareaIds')|length ==0 %}
+						"fareaIds": [],
+					{% else %}
+						"fareaIds": {{ad.get('campaignDetails').get('filters').get('fareaIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('locationIds')|length ==0 %}
+						"locationIds": [],
+					{% else %}
+						"locationIds": {{ad.get('campaignDetails').get('filters').get('locationIds')}},
+					{% endif %}
+					{% if ad.get('campaignDetails').get('filters').get('entityDeptIds')|length ==0 %}
+						"domainIds": []
+					{% else %}
+						"domainIds": {{ad.get('campaignDetails').get('filters').get('entityDeptIds')}}
+					{% endif %}
+				},
+			}
+		}
+	}
+}
