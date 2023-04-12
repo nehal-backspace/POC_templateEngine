@@ -2,32 +2,32 @@
 	"bg_img_pos": "end",
 	"subtitle": "",
 	"title": "{{adCollection.tiles[0].campaignDetails.label}}",
-	"isMultipleSelectionInput": false,
-	"footer_title": "",
+	"isInput": false,
+	"ntitle": "",
 		{% if bg_color is null %}
 	"bg_color": "#FFFFFF",
 		{% else %}
 	"bg_color":"{{bg_color}}",
 		{% endif %}
 	"tuple_bg_color": "#FFFFFF",
-	"widget_logo": "",
+	"nlogo": "",
 	"close_icon_avail": false,
-	"desc_type": "brandingCollectionWidget",
+	"desc_type": "brandCollectionWidget",
 	"bg_img": "",
-	"maxOptionVisible": 5,
-	"minOptionVisible":3,
+	"maxVisible": 5,
+	"minVisible":3,
 	"options": [
 		{% set ctr=0 %}
-		{% for ad in adCollection.tiles %}                    
+		{%Option for ad in adCollection.tiles %}                    
 		{% set ctr=ctr+1 %}
 		{% if (loop.first==false) and (ctr>1) %},{% endif %}{
 			"ubaEvent":{
 				"name":"brandingView",
 				"data":{
-					"campaignId": {{ad.campaignDetails.campaignId}},
-					"companyId": {{ad.campaignDetails.companyId}},
-					"groupId": {{ad.campaignDetails.groupId}},
-					"adId": {{ad.campaignDetails.adId}},
+					"canId": {{ad.campaignDetails.campaignId}},
+					"coId": {{ad.campaignDetails.companyId}},
+					"grId": {{ad.campaignDetails.groupId}},
+					"aId": {{ad.campaignDetails.adId}},
 					"subscriptionId": {{ad.campaignDetails.subscriptionId}},
 					"type": "{{ adType }}",
 					"filters": {
@@ -50,7 +50,7 @@
 					"label": "{{ad.campaignDetails.label}}"
 				}
 			},
-			"type": "brandingCollectionCard",
+			"type": "brandiCollectionCard",
 			"properties": {
 				{% set groupId=ad.campaignDetails.groupId   %}  
 				{% set label=ad.data.label %}   
@@ -77,16 +77,16 @@
 				"id": "{{ad.campaignDetails.groupId}}",
 				"code": "Follow",
 				"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
-				"ubaEvent": {
-					"name":"brandingClick",
+				"Event": {
+					"name":"brandClick",
 					"data":{
-						"campaignId": {{ad.campaignDetails.campaignId}},
-						"companyId": {{ad.campaignDetails.companyId}},
+						"caId": {{ad.campaignDetails.campaignId}},
+						"coId": {{ad.campaignDetails.companyId}},
 						"groupId": {{ad.campaignDetails.groupId}},
 						"adId": {{ad.campaignDetails.adId}},
 						"subscriptionId": {{ad.campaignDetails.subscriptionId}},
 						"type": "{{ adType }}",
-						"filters": {
+						"filtered": {
 							{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
 							"fareaIds": [],
 							{% else %}
@@ -113,19 +113,19 @@
 				"title": "View jobs",
 				"hitType": "inApp",
 				"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
-				"shouldRefreshImsOnCtaAction": false,"status":true,
-				"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte/jobs",
-				"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}?tab=jobs",
-				"ubaEvent": {
-					"name":"brandingClick",
+				"shouldCtaAction": false,"status":true,
+				"fallbackUrl": "abcdecompanypage://www.abcde.com/company/deloitte/jobs",
+				"url": "https://www.abcde.com/{{recruiter_company_service_group[groupId].overviewUrl}}?tab=jobs",
+				"Event": {
+					"name":"brandClick",
 					"data":{
-						"campaignId": {{ad.campaignDetails.campaignId}},
-						"companyId": {{ad.campaignDetails.companyId}},
+						"caId": {{ad.campaignDetails.campaignId}},
+						"coId": {{ad.campaignDetails.companyId}},
 						"groupId": {{ad.campaignDetails.groupId}},
 						"adId": {{ad.campaignDetails.adId}},
 						"subscriptionId": {{ad.campaignDetails.subscriptionId}},
 						"type": "{{ adType }}",
-						"filters": {
+						"filtered": {
 									{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
 									"fareaIds": [],
 									{% else %}
@@ -149,23 +149,23 @@
 			},
 			
 			"click": {
-				"shouldRefreshImsOnCtaAction": false,
+				"shouldAction": false,
 				"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
 				"hitType": "inApp",
-				"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte",
+				"fallbackUrl": "abcdecompanypage://www.abcde.com/company/deloitte",
 				"viewImagePath": "chevron",
-				"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}",
+				"url": "https://www.abcde.com/{{recruiter_company_service_group[groupId].overviewUrl}}",
 					"treatWholeWidget" : true,
 				"ubaEvent": {
 					"name":"brandingClick",
 					"data":{
-						"campaignId": {{ad.campaignDetails.campaignId}},
-						"companyId": {{ad.campaignDetails.companyId}},
+						"caId": {{ad.campaignDetails.campaignId}},
+						"coId": {{ad.campaignDetails.companyId}},
 						"groupId": {{ad.campaignDetails.groupId}},
 						"adId": {{ad.campaignDetails.adId}},
 						"subscriptionId": {{ad.campaignDetails.subscriptionId}},
 						"type": "{{ adType }}",
-						"filters": {
+						"filtered": {
 							{% if ad.campaignDetails.filters.fareaIds|length ==0 %}
 							"fareaIds": [],
 							{% else %}
@@ -199,9 +199,9 @@
 		"treatWholeWidget": false,
 		"inAppTitle": "",
 		"shouldRefreshImsOnCtaAction": true,
-		"url": "https://www.naukri.com/brandingWidgets?label={{ adCollection.tiles[0].campaignDetails.label }}",
+		"url": "https://www.abcde.com/brandingWidgets={{ adCollection.tiles[0].campaignDetails.label }}",
 		"hitType": "inApp",
-		"fallbackUrl": "https://www.naukri.com/brandingWidgets?title={{adCollection.tiles[0].campaignDetails.label}}",
+		"fallbackUrl": "https://www.abcde.com/{{adCollection.tiles[0].campaignDetails.label}}",
 		"ubaEvent": {
 			"name":"brandingClick",
 			"data":{
