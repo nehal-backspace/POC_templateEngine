@@ -1,32 +1,32 @@
 {
-	"bg_img_pos": "end",
+	"bg_pos": "end",
 	"subtitle": "",
 	"title": "",
-	"isMultipleSelectionInput": false,
-	"footer_title": "",
+	"isSelectionInput": false,
+	"footer": "",
 		{% if bg_color is null %}
 	"bg_color": "#FFFFFF",
 		{% else %}
 	"bg_color":"{{bg_color}}",
 		{% endif %}
-	"tuple_bg_color": "#FFFFFF",
-	"widget_logo": "",
+	"bg_color": "#FFFFFF",
+	"logo": "",
 	"close_icon_avail": false,
-	"desc_type": "brandingCollectionWidget",
+	"desc_type": "brandcollection",
 	"bg_img": "",
-	"maxOptionVisible": 5,
-	"minOptionVisible":3,
+	"maxVisible": 5,
+	"minVisible":3,
 	"options": [
 		{% set ctr=0 %}
 		{% for ad in adCollection.get('tiles') %}                    
 		{% set ctr=ctr+1 %}
 		{% if (loop.first==false) and (ctr>1) %},{% endif %}{
-		"ubaEvent":{
-			"name":"brandingView",
+		"Event":{
+			"name":"brandView",
 			"data":{
-				"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
-				"companyId": {{ad.get('campaignDetails').get('companyId')}},
-				"groupId": {{ad.get('campaignDetails').get('groupId')}},
+				"caId": {{ad.get('campaignDetails').get('campaignId')}},	
+				"coId": {{ad.get('campaignDetails').get('companyId')}},
+				"gId": {{ad.get('campaignDetails').get('groupId')}},
 				"adId": {{ad.get('campaignDetails').get('adId')}},
 				"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
 				"type": "{{ adType }}",
@@ -50,7 +50,7 @@
 				"label": "{{ad.get('campaignDetails').get('label')}}"
 			}
 		},
-		"type": "brandingCollectionCard",
+		"type": "brandCollectionCard",
 		"properties": {
 			{% set groupId=ad.get('campaignDetails').get('groupId')  %}  
 			{% set label=ad.get('campaignDetails').get('label') %}   
@@ -67,7 +67,7 @@
 			"label": "{{ad.get('campaignDetails').get('label')}}",
 			"description": "TBD",
 			"isFollowing": false,
-			"jobOpening": 800,
+			"jobOpen": 800,
 			"logo": "recruiter_company_service_branding[groupId].groupLogoNew.mobile.v1",
 			"id": {{ad.get('campaignDetails').get('companyId')}},
 			"groupId":{{ad.get('campaignDetails').get('groupId')}}
@@ -80,8 +80,8 @@
 			"ubaEvent": {
 				"name":"brandingClick",
 				"data":{
-					"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
-					"companyId": {{ad.get('campaignDetails').get('companyId')}},
+					"caId": {{ad.get('campaignDetails').get('campaignId')}},	
+					"coId": {{ad.get('campaignDetails').get('companyId')}},
 					"groupId": {{ad.get('campaignDetails').get('groupId')}},
 					"adId": {{ad.get('campaignDetails').get('adId')}},
 					"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
@@ -112,15 +112,15 @@
 			"title": "View jobs",
 			"hitType": "inApp",
 			"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
-			"shouldRefreshImsOnCtaAction": false,"status":true,
-			"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte/jobs",
-			"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}?tab=jobs",
-			"ubaEvent": {
-				"name":"brandingClick",
+			"shouldRefreshAction": false,"status":true,
+			"fallbackUrl": "abcdecompanypage://www.abcde.com/company/deloitte/jobs",
+			"url": "https://www.abcde.com/{{recruiter_company_service_group[groupId].overviewUrl}}?tab=jobs",
+			"Event": {
+				"name":"brandClick",
 				"data":{
-					"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
-					"companyId": {{ad.get('campaignDetails').get('companyId')}},
-					"groupId": {{ad.get('campaignDetails').get('groupId')}},
+					"caId": {{ad.get('campaignDetails').get('campaignId')}},	
+					"coId": {{ad.get('campaignDetails').get('companyId')}},
+					"gId": {{ad.get('campaignDetails').get('groupId')}},
 					"adId": {{ad.get('campaignDetails').get('adId')}},
 					"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
 					"type": "{{ adType }}",
@@ -151,20 +151,20 @@
 			"shouldRefreshImsOnCtaAction": false,
 			"inAppTitle":"{{  recruiter_company_service_group[groupId].groupName }}",
 			"hitType": "inApp",
-			"fallbackUrl": "naukricompanypage://www.naukri.com/company/deloitte",
+			"fallbackUrl": "companypage://www.abcde.com/company/deloitte",
 			"viewImagePath": "chevron",
-			"url": "https://www.naukri.com/{{recruiter_company_service_group[groupId].overviewUrl}}",
+			"url": "https://www.abcde.com/{{recruiter_company_service_group[groupId].overviewUrl}}",
 				"treatWholeWidget" : true,
-			"ubaEvent": {
-				"name":"brandingClick",
+			"Event": {
+				"name":"brandClick",
 				"data":{
-					"campaignId": {{ad.get('campaignDetails').get('campaignId')}},	
-					"companyId": {{ad.get('campaignDetails').get('companyId')}},
-					"groupId": {{ad.get('campaignDetails').get('groupId')}},
+					"caId": {{ad.get('campaignDetails').get('campaignId')}},	
+					"coId": {{ad.get('campaignDetails').get('companyId')}},
+					"gId": {{ad.get('campaignDetails').get('groupId')}},
 					"adId": {{ad.get('campaignDetails').get('adId')}},
 					"subscriptionId": {{ad.get('campaignDetails').get('subscriptionId')}},
 					"type": "{{ adType }}",
-					"filters": {
+					"filtered": {
 					{% if ad.get('campaignDetails').get('filters').get('fareaIds')|length ==0 %}
 						"fareaIds": [],
 					{% else %}
@@ -196,11 +196,11 @@
 		"treatWholeWidget": false,
 		"inAppTitle": "",
 		"shouldRefreshImsOnCtaAction": true,
-		"url": "https://www.naukri.com/brandingWidgets?label={{ adCollection.tiles[0].get('campaignDetails').get('label') }}",
+		"url": "https://www.abcde.com/brandingWidgets?label={{ adCollection.tiles[0].get('campaignDetails').get('label') }}",
 		"hitType": "inApp",
-		"fallbackUrl": "https://www.naukri.com/brandingWidgets?title={{adCollection.tiles[0].campaignDetails.label}}",
+		"fallbackUrl": "https://www.abcde.com/brandingWidgets?title={{adCollection.tiles[0].campaignDetails.label}}",
 		"ubaEvent": {
-			"name":"brandingClick",
+			"name":"brandClick",
 			"data":{
 				"CTA" : "View all",
 				"type": {{ adType }},
@@ -212,9 +212,9 @@
 						"fareaIds": {{ad.get('campaignDetails').get('filters').get('fareaIds')}},
 					{% endif %}
 					{% if ad.get('campaignDetails').get('filters').get('locationIds')|length ==0 %}
-						"locationIds": [],
+						"lIds": [],
 					{% else %}
-						"locationIds": {{ad.get('campaignDetails').get('filters').get('locationIds')}},
+						"lnIds": {{ad.get('campaignDetails').get('filters').get('locationIds')}},
 					{% endif %}
 					{% if ad.get('campaignDetails').get('filters').get('entityDeptIds')|length ==0 %}
 						"domainIds": []
